@@ -1,0 +1,44 @@
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+
+  <ng-container matColumnDef="airline">
+    <th mat-header-cell *matHeaderCellDef> AIRLINE </th>
+    <td mat-cell *matCellDef="let element" > {{element.airline}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Departure">
+    <th mat-header-cell *matHeaderCellDef> DEPARTURE </th>
+    <td mat-cell *matCellDef="let element"> {{element.Departure}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Arrival">
+    <th mat-header-cell *matHeaderCellDef> Arrival </th>
+    <td mat-cell *matCellDef="let element"> {{element.Arrival}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="Itinerary">
+    <th mat-header-cell *matHeaderCellDef> Itinerary </th>
+    <td mat-cell *matCellDef="let element"> {{element.Itinerary}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row  (click)="clickedRows.add(row)"
+  [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;" (contextmenu)="onContextMenu($event, row)"></tr>
+</table>
+
+<div style="visibility: hidden; position: fixed"
+
+      [style.left]="contextMenuPosition.x"
+      [style.top]="contextMenuPosition.y"
+      [matMenuTriggerFor]="contextMenu">
+  </div>
+  <mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="onContextMenuAction1(item)">Show flight details</button>
+      <button mat-menu-item (click)="onContextMenuAction2(item)">Show airlines</button>
+    </ng-template>
+  </mat-menu>
